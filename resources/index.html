@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>Synthwave Radio - NightRide.fm</title>
+    <link rel="stylesheet" href="./styles.css" type="text/css">
+</head>
+
+<body class="chillsynth">
+    <div class="container">
+        <div id="titlebar" class="titlebar">
+            <button id="minimize-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M5 16h14v2H5z"/>
+              </svg></button>
+            <button id="close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg></button>
+        </div>
+        <div class="overlay noise"></div>
+        <div class="overlay scanlines __web-inspector-hide-shortcut__"></div>
+        <div class="overlay scanline"></div>
+        <div class="logo"><a style="color: inherit; text-decoration: none;">NIGHTRIDE.FM</a>
+        </div>
+        <div id="status">Ready to play</div>
+        <div id="currentInfo"></div>
+        <canvas id="frequencyCanvas"></canvas>
+        <canvas id="barsCanvas"></canvas>
+        <div class="controls" style="top: 40px;">
+            <button id="playBtn" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5v14l11-7z"/>
+              </svg></button>
+            <button id="muteBtn" class="btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+              </svg></button>
+            <div class="volume-bar" style="cursor: pointer;">
+                <div class="volume-level"></div>
+            </div>
+        </div>
+        <div class="style-buttons">
+            <button class="style-btn" data-style="nightride">NIGHTRIDE</button>
+            <button class="style-btn active" data-style="chillsynth">CHILLSYNTH</button>
+            <button class="style-btn" data-style="datawave">DATAWAVE</button>
+            <button class="style-btn" data-style="spacesynth">SPACESYNTH</button>
+            <button class="style-btn" data-style="darksynth">DARKSYNTH</button>
+            <button class="style-btn" data-style="horrorsynth">HORRORSYNTH</button>
+            <button class="style-btn" data-style="ebsm">EBSM</button>
+        </div>
+    </div>
+
+    <script src="/js/neutralino.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

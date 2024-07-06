@@ -1,0 +1,693 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Orbitron', sans-serif;
+    background-color: rgba(0, 0, 0, 0);
+    color: #beb6a9;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.titlebar {
+    display: flex;
+    justify-content: flex-end;
+    /* background-color: #33333305; */
+    color: white;
+    padding: 5px;
+}
+
+.titlebar button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: 5px;
+    -webkit-app-region: no-drag;
+    user-select: none;
+    outline: none;
+}
+
+.titlebar button:hover {
+    background-color: #555;
+}
+
+.container {
+    CONTAIN-INTRINSIC-BLOCK-SIZE: AUTO 100PX;
+    position: relative;
+    width: 100%;
+    /* max-width: 898px; */
+    height: 99.5%;
+    /* border-radius: 10px; */
+    box-shadow: 0 0 10px;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.overlay.noise {
+    z-index: 800;
+    animation: grain 8s steps(10) infinite;
+    background-image: url(https://nightride.fm/static/img/noise.png);
+    height: 400%;
+    left: -50%;
+    top: -150%;
+    width: 300%;
+    background-size: auto;
+    opacity: .2;
+}
+
+.overlay.scanline {
+    z-index: 1010;
+    animation: scanline 7.77s linear infinite;
+    background: linear-gradient(to bottom,
+            transparent 80%,
+            rgba(0, 0, 0, 0.3) 90%);
+    background-size: 100% 4px;
+    background-repeat: repeat-x;
+}
+
+@keyframes grain {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -10%);
+    }
+
+    20% {
+        transform: translate(-15%, 5%);
+    }
+
+    30% {
+        transform: translate(7%, -25%);
+    }
+
+    40% {
+        transform: translate(-5%, 25%);
+    }
+
+    50% {
+        transform: translate(-15%, 10%);
+    }
+
+    60% {
+        transform: translate(15%, 0%);
+    }
+
+    70% {
+        transform: translate(0%, 15%);
+    }
+
+    80% {
+        transform: translate(3%, 35%);
+    }
+
+    90% {
+        transform: translate(-10%, 10%);
+    }
+}
+
+@keyframes scanline {
+    100% {
+        transform: translateY(0);
+    }
+
+    0% {
+        transform: translateY(100%);
+    }
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    text-shadow: 0 0 10px;
+    user-select: none;
+}
+
+.controls {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    height: 40px;
+    user-select: none;
+    outline: none;
+}
+
+.btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.3s ease;
+    width: 30px;
+    user-select: none;
+    outline: none;
+}
+
+.btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+.btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 2px rgb(255, 255, 255));
+}
+
+.volume-bar {
+    width: 100px;
+    left: 10;
+    height: 5px;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    user-select: none;
+}
+
+.volume-bar:hover {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.volume-level {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    box-shadow: 0 0 10px;
+    user-select: none;
+}
+
+#status {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    text-shadow: 0 0 black;
+    font-size: 14px;
+    user-select: none;
+}
+
+#currentInfo {
+    position: absolute;
+    top: 80px;
+    left: 20px;
+    text-shadow: 0 0 black;
+    font-size: 14px;
+    user-select: none;
+}
+
+canvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+#frequencyCanvas {
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
+}
+
+.style-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    user-select: none;
+    outline: none;
+}
+
+.style-btn {
+    background: #00000075;
+    border: 1px solid;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    user-select: none;
+    outline: none;
+}
+
+.style-btn:hover,
+.style-btn.active {
+    color: #171615;
+}
+
+/* Chillsynth - unchanged */
+body.chillsynth {
+    /* background-color: #d39b6ef0; */
+    color: #beb6a9;
+}
+
+.chillsynth .container {
+    background: linear-gradient(45deg, #3a1c3d, #251320);
+    border: 2px solid #a923c2;
+    box-shadow: 0 0 10px #e02cd2;
+}
+
+.chillsynth .logo {
+    color: #d8faf2;
+    text-shadow: 0 0 10px #84e7ff;
+}
+
+.chillsynth .btn {
+    color: #d8faf2;
+}
+
+.chillsynth .btn:hover {
+    text-shadow: 0 0 10px #e02cd2;
+}
+
+.chillsynth .volume-bar {
+    background: #435155;
+}
+
+.chillsynth .volume-level {
+    background: linear-gradient(90deg, #a923c2, #e02cd2);
+    box-shadow: 0 0 10px #e02cd2;
+}
+
+.chillsynth #currentInfo {
+    color: #e02cd2;
+}
+
+.chillsynth .style-btn {
+    border-color: #a923c2;
+    color: #d8faf2;
+}
+
+.chillsynth .style-btn:hover,
+.chillsynth .style-btn.active {
+    background-color: #a923c2;
+}
+
+.chillsynth .titlebar button svg {
+    fill: #a923c2;
+}
+
+.chillsynth .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #a923c2);
+}
+
+.chillsynth .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Nightride - Blade Runner inspired */
+body.nightride {
+    background-color: #17161500;
+    color: #66fcf1;
+}
+
+.nightride .container {
+    background: linear-gradient(45deg, #1f2833, #0b0c10);
+    border: 2px solid #45a29e;
+    box-shadow: 0 0 10px #66fcf1;
+}
+
+.nightride .logo {
+    color: #66fcf1;
+    text-shadow: 0 0 10px #45a29e;
+}
+
+.nightride .btn {
+    color: #66fcf1;
+}
+
+.nightride .btn:hover {
+    text-shadow: 0 0 10px #45a29e;
+}
+
+.nightride .volume-bar {
+    background: #1f2833;
+}
+
+.nightride .volume-level {
+    background: linear-gradient(90deg, #45a29e, #66fcf1);
+    box-shadow: 0 0 10px #66fcf1;
+}
+
+.nightride #currentInfo {
+    color: #45a29e;
+}
+
+.nightride .style-btn {
+    border-color: #45a29e;
+    color: #66fcf1;
+}
+
+.nightride .style-btn:hover,
+.nightride .style-btn.active {
+    background-color: #45a29e;
+}
+
+.nightride .titlebar button svg {
+    fill: #45a29e;
+}
+
+.nightride .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #45a29e);
+}
+
+.nightride .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Datawave - 80s Computer Terminal */
+body.datawave {
+    background-color: #17161500;
+    color: #00ff00;
+}
+
+.datawave .container {
+    background: linear-gradient(45deg, #001100, #002200);
+    border: 2px solid #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.datawave .logo {
+    color: #00ff00;
+    text-shadow: 0 0 10px #00aa00;
+}
+
+.datawave .btn {
+    color: #00ff00;
+}
+
+.datawave .btn:hover {
+    text-shadow: 0 0 10px #00aa00;
+}
+
+.datawave .volume-bar {
+    background: #001100;
+}
+
+.datawave .volume-level {
+    background: linear-gradient(90deg, #00aa00, #00ff00);
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.datawave #currentInfo {
+    color: #00aa00;
+}
+
+.datawave .style-btn {
+    border-color: #00aa00;
+    color: #00ff00;
+}
+
+.datawave .style-btn:hover,
+.datawave .style-btn.active {
+    background-color: #00aa00;
+}
+
+.datawave .titlebar button svg {
+    fill: #00aa00;
+}
+
+.datawave .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #00aa00);
+}
+
+.datawave .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Spacesynth - 80s Sci-Fi */
+body.spacesynth {
+    background-color: #17161500;
+    color: #e762d7;
+}
+
+.spacesynth .container {
+    background: linear-gradient(45deg, #1e1637, #0c0b13);
+    border: 2px solid #e762d7;
+    box-shadow: 0 0 10px #b52cc7;
+}
+
+.spacesynth .logo {
+    color: #e762d7;
+    text-shadow: 0 0 10px #b52cc7;
+}
+
+.spacesynth .btn {
+    color: #e762d7;
+}
+
+.spacesynth .btn:hover {
+    text-shadow: 0 0 10px #b52cc7;
+}
+
+.spacesynth .volume-bar {
+    background: #1e1637;
+}
+
+.spacesynth .volume-level {
+    background: linear-gradient(90deg, #b52cc7, #e762d7);
+    box-shadow: 0 0 10px #e762d7;
+}
+
+.spacesynth #currentInfo {
+    color: #b52cc7;
+}
+
+.spacesynth .style-btn {
+    border-color: #b52cc7;
+    color: #e762d7;
+}
+
+.spacesynth .style-btn:hover,
+.spacesynth .style-btn.active {
+    background-color: #b52cc7;
+}
+
+.spacesynth .titlebar button svg {
+    fill: #b52cc7;
+}
+
+.spacesynth .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #b52cc7);
+}
+
+.spacesynth .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Darksynth - Terminator inspired */
+body.darksynth {
+    background-color: #17161500;
+    color: #ff3c00;
+}
+
+.darksynth .container {
+    background: linear-gradient(45deg, #2b2b2b, #1a1a1a);
+    border: 2px solid #ff3c00;
+    box-shadow: 0 0 10px #ff3c00;
+}
+
+.darksynth .logo {
+    color: #ff3c00;
+    text-shadow: 0 0 10px #b32900;
+}
+
+.darksynth .btn {
+    color: #ff3c00;
+}
+
+.darksynth .btn:hover {
+    text-shadow: 0 0 10px #b32900;
+}
+
+.darksynth .volume-bar {
+    background: #2b2b2b;
+}
+
+.darksynth .volume-level {
+    background: linear-gradient(90deg, #b32900, #ff3c00);
+    box-shadow: 0 0 10px #ff3c00;
+}
+
+.darksynth #currentInfo {
+    color: #b32900;
+}
+
+.darksynth .style-btn {
+    border-color: #b32900;
+    color: #ff3c00;
+}
+
+.darksynth .style-btn:hover,
+.darksynth .style-btn.active {
+    background-color: #b32900;
+}
+
+.darksynth .titlebar button svg {
+    fill: #b32900;
+}
+
+.darksynth .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #b32900);
+}
+
+.darksynth .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* Horrorsynth - 80s Horror */
+body.horrorsynth {
+    background-color: #17161500;
+    color: #ff0000;
+}
+
+.horrorsynth .container {
+    background: linear-gradient(45deg, #1a0000, #000000);
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 10px #800000;
+}
+
+.horrorsynth .logo {
+    color: #ff0000;
+    text-shadow: 0 0 10px #800000;
+}
+
+.horrorsynth .btn {
+    color: #ff0000;
+}
+
+.horrorsynth .btn:hover {
+    text-shadow: 0 0 10px #800000;
+}
+
+.horrorsynth .volume-bar {
+    background: #1a0000;
+}
+
+.horrorsynth .volume-level {
+    background: linear-gradient(90deg, #800000, #ff0000);
+    box-shadow: 0 0 10px #ff0000;
+}
+
+.horrorsynth #currentInfo {
+    color: #800000;
+}
+
+.horrorsynth .style-btn {
+    border-color: #800000;
+    color: #ff0000;
+}
+
+.horrorsynth .style-btn:hover,
+.horrorsynth .style-btn.active {
+    background-color: #800000;
+}
+
+.horrorsynth .titlebar button svg {
+    fill: #800000;
+}
+
+.horrorsynth .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #800000);
+}
+
+.horrorsynth .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+/* EBSM - 90s Electronica */
+body.ebsm {
+    background-color: #17161500;
+    color: #00ffff;
+}
+
+.ebsm .container {
+    background: linear-gradient(45deg, #000066, #000033);
+    border: 2px solid #00ffff;
+    box-shadow: 0 0 10px #0080ff;
+}
+
+.ebsm .logo {
+    color: #00ffff;
+    text-shadow: 0 0 10px #0080ff;
+}
+
+.ebsm .btn {
+    color: #00ffff;
+}
+
+.ebsm .btn:hover {
+    text-shadow: 0 0 10px #0080ff;
+}
+
+.ebsm .volume-bar {
+    background: #000066;
+}
+
+.ebsm .volume-level {
+    background: linear-gradient(90deg, #0080ff, #00ffff);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.ebsm #currentInfo {
+    color: #0080ff;
+}
+
+.ebsm .style-btn {
+    border-color: #0080ff;
+    color: #00ffff;
+}
+
+.ebsm .style-btn:hover,
+.ebsm .style-btn.active {
+    background-color: #0080ff;
+}
+
+.ebsm .titlebar button svg {
+    fill: #0080ff;
+}
+
+.ebsm .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #0080ff);
+}
+
+.ebsm .btn svg {
+    transition: filter 0.3s ease;
+    filter: drop-shadow(0px 0px 3px #0080ff);
+}
+
+.ebsm .btn:hover svg {
+    filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.3));
+}
